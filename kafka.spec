@@ -42,13 +42,15 @@ rm -f libs/{*-javadoc.jar,*-scaladoc.jar,*-sources.jar,*-test.jar}
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/%{name}/{libs,bin,config}
+mkdir -p $RPM_BUILD_ROOT%{_prefix}/%{name}/config/kraft
 mkdir -p $RPM_BUILD_ROOT%{_log_dir}
 mkdir -p $RPM_BUILD_ROOT%{_data_dir}
 mkdir -p $RPM_BUILD_ROOT%{_unitdir}
 mkdir -p $RPM_BUILD_ROOT%{_conf_dir}/
 install -p -D -m 755 bin/*.sh $RPM_BUILD_ROOT%{_prefix}/%{name}/bin
-install -p -D -m 644 config/* $RPM_BUILD_ROOT%{_prefix}/%{name}/config
-install -p -D -m 644 config/server.properties $RPM_BUILD_ROOT%{_conf_dir}/
+install -v -p -D -m 644 config/kraft/* $RPM_BUILD_ROOT%{_prefix}/%{name}/config/kraft
+install -v -p -D -m 644 config/[a-jl-z]* $RPM_BUILD_ROOT%{_prefix}/%{name}/config
+install -v -p -D -m 644 config/server.properties $RPM_BUILD_ROOT%{_conf_dir}/
 sed -i "s:^log.dirs=.*:log.dirs=%{_data_dir}:" $RPM_BUILD_ROOT%{_conf_dir}/server.properties
 install -p -D -m 755 %{S:1} $RPM_BUILD_ROOT%{_unitdir}/
 install -p -D -m 644 %{S:2} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}

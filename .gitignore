@@ -1,6 +1,7 @@
 /KEYS
 /kafka_*.tgz
 /kafka_*.asc
+/kafka*-src.tgz
 /x86_64/
 /*.jar
 !kafka-graphite*.jar
